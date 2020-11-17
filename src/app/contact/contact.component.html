@@ -2,3 +2,10 @@
   <h1>Contact</h1>
 </div>
 
+<div *ngFor="let supervisor of supervisors">
+  <img src={{supervisor.img}} style="width: 100px">
+  <p>{{supervisor.name}}</p>
+  <p>{{supervisor.outside_line}}</p>
+  <p>{{supervisor.internal_ext}}</p>
+</div>
+
