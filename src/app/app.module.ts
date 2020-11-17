@@ -10,6 +10,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import {MatCardModule} from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { ContactComponent } from './contact/contact.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
