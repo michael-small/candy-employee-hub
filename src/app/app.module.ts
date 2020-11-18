@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import {MatCardModule} from '@angular/material/card';
+import { EmployeeAssignmentBoardComponent } from './employee-assignment-board/employee-assignment-board.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {MatCardModule} from '@angular/material/card';
     NavbarComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    EmployeeAssignmentBoardComponent
   ],
   imports: [
     BrowserModule,
