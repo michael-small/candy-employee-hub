@@ -1,24 +1,26 @@
 <div class="body-component">
   <h1>Contact</h1>
 
-  <mat-card class="card" *ngFor="let supervisor of supervisors">
-    <img
-      mat-card-image
-      src={{supervisor.img}}
-      alt={{supervisor.name}}
-    />
-    <mat-card-content>
-      <h2 style="text-align: center">
-        <b>{{supervisor.name}}</b>
-      </h2>
-      <p>
-        <b>Outside Line: {{supervisor.outside_line}}</b>
-      </p>
-      <p>
-        <b>Internal Ext: {{supervisor.internal_ext}}</b>
-      </p>
-    </mat-card-content>
-  </mat-card>
+  <div class="card-container">
+    <mat-card class="card" *ngFor="let supervisor of supervisors">
+      <img
+        mat-card-image
+        src={{supervisor.img}}
+        alt={{supervisor.name}}
+      />
+      <mat-card-content>
+        <h2 style="text-align: center">
+          <b>{{supervisor.name}}</b>
+        </h2>
+        <p>
+          <b>Outside Line: {{supervisor.outside_line}}</b>
+        </p>
+        <p>
+          <b>Internal Ext: {{supervisor.internal_ext}}</b>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
 

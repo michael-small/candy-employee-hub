@@ -1,9 +1,18 @@
-div {
+.body-component {
   padding: 1rem;
 }
 
 .card {
-  max-width: 200px;
   display: inline-block;
-  margin: 1rem;
+  margin: 10px;
+}
+
+.card-container {
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 900px) {
+  .card {
+    max-width: 30%;
+  }
 }
