@@ -4,7 +4,7 @@
     <h2>What date do you want to assign a line status to?</h2>
     <mat-form-field appearance="fill">
       <mat-label>Pick a Date</mat-label>
-      <input matInput [matDatepicker]="picker" [min]="today">
+      <input matInput [matDatepicker]="picker" [min]="today" [(ngModel)]="date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -14,8 +14,8 @@
     <h2>How is the line this shift?</h2>
     <mat-form-field appearance="fill">
       <mat-label>Select Line Status</mat-label>
-      <mat-select required>
-        <mat-option *ngFor="let state of line" [value]="state.value">
+      <mat-select required [(ngModel)]="status">
+        <mat-option *ngFor="let state of line" [value]="state.viewValue">
           {{state.viewValue}}
         </mat-option>
       </mat-select>
@@ -25,7 +25,7 @@
   <div class="center">
     <mat-form-field style="width: 100%">
       <mat-label>Leave a comment (optional)</mat-label>
-      <textarea matInput placeholder="Because James is sick..."></textarea>
+      <textarea matInput placeholder="Because James is sick..." [(ngModel)]="comment"></textarea>
     </mat-form-field>
 
     <section>
@@ -34,5 +34,13 @@
       </div>
     </section>
   </div>
+</div>
+
+<div class="center" style="margin-top: 2rem">
+  <h1 style="text-align: center;">What Employees Will See</h1>
+  <h1>Date: {{date | date: 'EEEE, MMMM d'}}</h1>
+  <h2>Line Status: {{status}}</h2>
+  <h2>Comment: {{comment}}</h2>
+
 </div>
 

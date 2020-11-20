@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from "@angular/forms"
 
 interface LineStatus {
   value: string;
@@ -18,6 +19,10 @@ export class LineStatusComponent implements OnInit {
     {value: 'cleaning', viewValue: 'Cleaning'},
     {value: 'down', viewValue: 'Down'},
   ];
+
+  comment = '';
+  status: null;
+  date = "";
 
   today: Date = new Date();
 
