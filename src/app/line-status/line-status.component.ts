@@ -5,6 +5,10 @@ interface LineStatus {
   value: string;
   viewValue: string;
 }
+interface Shifts {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-line-status',
@@ -20,9 +24,16 @@ export class LineStatusComponent implements OnInit {
     {value: 'down', viewValue: 'Down'},
   ];
 
+  shifts: Shifts[] = [
+    {value: 'day', viewValue: 'Day'},
+    {value: 'mid', viewValue: 'Mid'},
+    {value: 'night', viewValue: 'Night'},
+  ];
+
   comment = '';
   status: null;
   date = "";
+  shift: null;
 
   today: Date = new Date();
 

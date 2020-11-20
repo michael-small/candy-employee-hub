@@ -9,6 +9,15 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select Shift</mat-label>
+      <mat-select required [(ngModel)]="shift">
+        <mat-option *ngFor="let shift of shifts" [value]="shift.viewValue">
+          {{shift.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="child-center">
@@ -24,7 +33,7 @@
   </div>
 
   <div class="child-center">
-    <mat-form-field style="width: 100%">
+    <mat-form-field style="width: 100%" appearance="fill">
       <mat-label>Leave a comment (optional)</mat-label>
       <textarea matInput placeholder="Because James is sick..." [(ngModel)]="comment"></textarea>
     </mat-form-field>
@@ -36,13 +45,14 @@
     </section>
   </div>
 
-  <mat-card>
+  <mat-card style="margin-top: 1rem;">
     <h1>What Employees Will See</h1>
     <mat-card-header style="margin-bottom: 0.5rem">
       <div mat-card-avatar><mat-icon>person</mat-icon></div>
       <mat-card-title><b>Date:</b> {{date | date: 'EEEE, MMMM d'}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <h2><u>Shift:</u> {{shift}}</h2>
       <h2><u>Line:</u> {{status}}</h2>
       <h2><u>Comment:</u> {{comment}}</h2>
       </mat-card-content>
