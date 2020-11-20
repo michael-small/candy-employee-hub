@@ -1,6 +1,6 @@
 <div class="center">
   <h1 style="text-align: center;">Line Status</h1>
-  <div class="center">
+  <div class="child-center">
     <h2>What date do you want to assign a line status to?</h2>
     <mat-form-field appearance="fill">
       <mat-label>Pick a Date</mat-label>
@@ -10,7 +10,7 @@
     </mat-form-field>
   </div>
 
-  <div class="center">
+  <div class="child-center">
     <h2>How is the line this shift?</h2>
     <mat-form-field appearance="fill">
       <mat-label>Select Line Status</mat-label>
@@ -22,7 +22,7 @@
     </mat-form-field>
   </div>
 
-  <div class="center">
+  <div class="child-center">
     <mat-form-field style="width: 100%">
       <mat-label>Leave a comment (optional)</mat-label>
       <textarea matInput placeholder="Because James is sick..." [(ngModel)]="comment"></textarea>
@@ -34,13 +34,13 @@
       </div>
     </section>
   </div>
+  <div class="child-center" style="margin-top: 2rem">
+    <h1 style="text-align: center;">What Employees Will See</h1>
+    <h1>Date: {{date | date: 'EEEE, MMMM d'}}</h1>
+    <h2>Line: {{status}}</h2>
+    <h2>Comment: {{comment}}</h2>
+  </div>
 </div>
 
-<div class="center" style="margin-top: 2rem">
-  <h1 style="text-align: center;">What Employees Will See</h1>
-  <h1>Date: {{date | date: 'EEEE, MMMM d'}}</h1>
-  <h2>Line Status: {{status}}</h2>
-  <h2>Comment: {{comment}}</h2>
 
-</div>
 
