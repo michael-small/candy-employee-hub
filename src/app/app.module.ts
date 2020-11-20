@@ -21,6 +21,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelect, MatSelectModule} from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -54,7 +56,8 @@ import { LineStatusComponent } from './line-status/line-status.component';
     MatCheckboxModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
