@@ -1,1 +1,34 @@
-<p>employee-assignment-board works!</p>
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Enter Lines</ng-template>
+      <ul style="list-style-type: none;">
+        <li><mat-checkbox>Line 1</mat-checkbox></li>
+        <li><mat-checkbox>Line 2</mat-checkbox></li>
+      </ul>
+      <mat-form-field>
+        <mat-label>Line</mat-label>
+        <input matInput placeholder="Line name" formControlName="firstCtrl" required>
+        <button mat-raised-button matSuffix color="primary">Add Line</button>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext style="border: 1px solid black">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step label="Sort people by lines">
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Print Line Assignments</ng-template>
+    <p>Click the button to open up a new tab that shows line assignments that is ready to print out!</p>
+    <div>
+      <a routerLink="/" target="_blank" mat-raised-button color="primary">Printout Lines</a>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -11,7 +11,18 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { EmployeeAssignmentBoardComponent } from './employee-assignment-board/employee-assignment-board.component';
+import { LineStatusComponent } from './line-status/line-status.component';
 
 
 @NgModule({
@@ -21,14 +32,22 @@ import { EmployeeAssignmentBoardComponent } from './employee-assignment-board/em
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    EmployeeAssignmentBoardComponent
+    EmployeeAssignmentBoardComponent,
+    LineStatusComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
