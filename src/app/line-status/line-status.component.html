@@ -1,1 +1,38 @@
-<p>line-status works!</p>
+<div class="center">
+  <h1 style="text-align: center;">Line Status</h1>
+  <div class="center">
+    <h2>What date do you want to assign a line status to?</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Pick a Date</mat-label>
+      <input matInput [matDatepicker]="picker" [min]="today">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="center">
+    <h2>How is the line this shift?</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Line Status</mat-label>
+      <mat-select required>
+        <mat-option *ngFor="let state of line" [value]="state.value">
+          {{state.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="center">
+    <mat-form-field style="width: 100%">
+      <mat-label>Leave a comment (optional)</mat-label>
+      <textarea matInput placeholder="Because James is sick..."></textarea>
+    </mat-form-field>
+
+    <section>
+      <div class="center center-button">
+        <button mat-raised-button color="primary">Submit</button>
+      </div>
+    </section>
+  </div>
+</div>
+
