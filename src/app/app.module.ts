@@ -12,6 +12,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import {MatCardModule} from '@angular/material/card';
 import { EmployeeAssignmentBoardComponent } from './employee-assignment-board/employee-assignment-board.component';
+import { ProductionCalendarComponent } from './production-calendar/production-calendar.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { EmployeeAssignmentBoardComponent } from './employee-assignment-board/em
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    EmployeeAssignmentBoardComponent
+    EmployeeAssignmentBoardComponent,
+    ProductionCalendarComponent
   ],
   imports: [
     BrowserModule,
