@@ -16,6 +16,7 @@
 
 h1 {
   text-align: center;
+  margin-top: 1rem;
 }
 
 .example-header-image {
@@ -28,4 +29,20 @@ mat-card {
   margin-left: auto;
   margin-right: auto;
   background: rgb(231, 229, 229);
+}
+
+mat-card-header {
+  margin-bottom: 0.5rem;
+}
+
+section {
+  margin-bottom: 0.5rem;
+}
+
+#archive {
+  margin-bottom: 0.5rem;
+}
+
+.achived-status {
+  margin-top: 0.5rem;
 }
