@@ -1,13 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from "@angular/forms"
+import { FormControl, FormGroup, FormsModule } from "@angular/forms"
 
-interface LineStatus {
+interface LineState {
   value: string;
   viewValue: string;
 }
 interface Shifts {
   value: string;
   viewValue: string;
+}
+
+interface LineStatus {
+  comment: string;
+  status: string;
+  date: string;
+  shift: string;
 }
 
 @Component({
@@ -17,7 +24,22 @@ interface Shifts {
 })
 export class LineStatusComponent implements OnInit {
 
-  line: LineStatus[] = [
+  lineStatusForm = new FormGroup({
+    date: new FormControl(),
+    shift: new FormControl(),
+    comment: new FormControl(),
+    status: new FormControl(),
+  });
+
+  lineStatusArray: LineStatus[] = [];
+  lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
+
+  comment = '';
+  status: '';
+  date = '';
+  shift: '';
+
+  line: LineState[] = [
     {value: 'trial', viewValue: 'Trial'},
     {value: 'production', viewValue: 'Production'},
     {value: 'cleaning', viewValue: 'Cleaning'},
@@ -30,10 +52,16 @@ export class LineStatusComponent implements OnInit {
     {value: 'night', viewValue: 'Night'},
   ];
 
-  comment = '';
-  status: null;
-  date = "";
-  shift: null;
+  submitLineStatus(): void {
+    this.lineStatusInstance.comment = this.comment;
+    this.lineStatusInstance.status = this.status;
+    this.lineStatusInstance.date = this.date;
+    this.lineStatusInstance.shift = this.shift;
+
+    this.lineStatusArray.push(this.lineStatusInstance);
+    this.lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
+    this.lineStatusForm.reset();
+  }
 
   today: Date = new Date();
 

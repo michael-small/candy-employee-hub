@@ -1,53 +1,54 @@
-<div class="center">
+<section class="center">
+  <form [formGroup]="lineStatusForm">
+    <h1>Line Status</h1>
+    <div class="child-center">
+      <h2>What date do you want to assign a line status to?</h2>
+      <mat-form-field appearance="fill">
+        <mat-label>Pick a Date</mat-label>
+        <input matInput [matDatepicker]="picker" [min]="today" [(ngModel)]="date" required name="date" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-  <h1>Line Status</h1>
-  <div class="child-center">
-    <h2>What date do you want to assign a line status to?</h2>
-    <mat-form-field appearance="fill">
-      <mat-label>Pick a Date</mat-label>
-      <input matInput [matDatepicker]="picker" [min]="today" [(ngModel)]="date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Select Shift</mat-label>
+        <mat-select required [(ngModel)]="shift" name="shift" formControlName="shift">
+          <mat-option *ngFor="let shift of shifts" [value]="shift.viewValue" required>
+            {{shift.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Select Shift</mat-label>
-      <mat-select required [(ngModel)]="shift">
-        <mat-option *ngFor="let shift of shifts" [value]="shift.viewValue">
-          {{shift.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="child-center">
+      <h2>How is the line this shift?</h2>
+      <mat-form-field appearance="fill">
+        <mat-label>Select Line Status</mat-label>
+        <mat-select required [(ngModel)]="status" name="status" formControlName="status">
+          <mat-option *ngFor="let state of line" [value]="state.viewValue">
+            {{state.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div class="child-center">
-    <h2>How is the line this shift?</h2>
-    <mat-form-field appearance="fill">
-      <mat-label>Select Line Status</mat-label>
-      <mat-select required [(ngModel)]="status">
-        <mat-option *ngFor="let state of line" [value]="state.viewValue">
-          {{state.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="child-center">
+      <mat-form-field style="width: 100%" appearance="fill">
+        <mat-label>Leave a comment (optional)</mat-label>
+        <textarea matInput placeholder="Because James is sick..." [(ngModel)]="comment" name="comment" formControlName="comment"></textarea>
+      </mat-form-field>
 
-  <div class="child-center">
-    <mat-form-field style="width: 100%" appearance="fill">
-      <mat-label>Leave a comment (optional)</mat-label>
-      <textarea matInput placeholder="Because James is sick..." [(ngModel)]="comment"></textarea>
-    </mat-form-field>
+      <section>
+        <div class="center center-button">
+          <button mat-raised-button color="primary" (click)="submitLineStatus()" [disabled]="lineStatusForm.invalid">Submit</button>
+        </div>
+      </section>
+    </div>
+  </form>
+</section>
 
-    <section>
-      <div class="center center-button">
-        <button mat-raised-button color="primary">Submit</button>
-      </div>
-    </section>
-  </div>
-
-</div>
-
-<h1 style="margin-top: 1rem;">What Employees Will See</h1>
+<section>
+  <h1 style="margin-top: 1rem;">What Employees Will See</h1>
 
 <mat-card>
   <mat-card-header style="margin-bottom: 0.5rem">
@@ -60,6 +61,24 @@
     <h2><u>Comment:</u> {{comment}}</h2>
     </mat-card-content>
 </mat-card>
+</section>
+
+<section *ngIf="lineStatusArray.length > 0">
+  <h1 style="margin-top: 1rem;">Archived Line Statuses</h1>
+
+  <mat-card *ngFor="let archivedStatus of lineStatusArray" style="margin-top: 0.5rem">
+    <mat-card-header style="margin-bottom: 0.5rem">
+      <div mat-card-avatar><mat-icon>person</mat-icon></div>
+      <mat-card-title>{{archivedStatus.date | date: 'EEEE, MMMM d'}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <h2><u>Shift:</u> {{archivedStatus.shift}}</h2>
+      <h2><u>Line:</u> {{archivedStatus.status}}</h2>
+      <h2><u>Comment:</u> {{archivedStatus.comment}}</h2>
+      </mat-card-content>
+  </mat-card>
+</section>
+
 
 
 
