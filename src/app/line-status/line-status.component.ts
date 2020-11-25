@@ -63,8 +63,6 @@ export class LineStatusComponent implements OnInit {
     this.lineStatusForm.reset();
   }
 
-  today: Date = new Date();
-
   constructor() { }
 
   ngOnInit(): void {
