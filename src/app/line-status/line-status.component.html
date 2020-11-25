@@ -3,7 +3,7 @@
     <h1>Line Status</h1>
     <div class="child-center">
       <h2>What date do you want to assign a line status to?</h2>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="margin-right: 0.5rem;">
         <mat-label>Pick a Date</mat-label>
         <input matInput [matDatepicker]="picker" [min]="today" [(ngModel)]="date" required name="date" formControlName="date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
