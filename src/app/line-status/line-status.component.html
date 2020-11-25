@@ -47,37 +47,40 @@
   </form>
 </section>
 
-<section>
-  <h1>What Employees Will See</h1>
+<div id="statuses">
+  <section>
+    <h1>What Employees Will See</h1>
 
-  <mat-card>
-    <mat-card-header>
-      <div mat-card-avatar><mat-icon>person</mat-icon></div>
-      <mat-card-title>{{date | date: 'EEEE, MMMM d'}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <h2><u>Shift:</u> {{shift}}</h2>
-      <h2><u>Line:</u> {{status}}</h2>
-      <h2 *ngIf="comment"><u>Comment:</u> {{comment}}</h2>
-      </mat-card-content>
-  </mat-card>
-</section>
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar><mat-icon>person</mat-icon></div>
+        <mat-card-title>{{date | date: 'EEEE, MMMM d'}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2><u>Shift:</u> {{shift}}</h2>
+        <h2><u>Line:</u> {{status}}</h2>
+        <h2 *ngIf="comment"><u>Comment:</u> {{comment}}</h2>
+        </mat-card-content>
+    </mat-card>
+  </section>
 
-<section *ngIf="lineStatusArray.length > 0" id="archive">
-  <h1>Archived Line Statuses</h1>
+  <section *ngIf="lineStatusArray.length > 0" id="archive">
+    <h1>Archived Line Statuses</h1>
 
-  <mat-card *ngFor="let archivedStatus of lineStatusArray" class="achived-status">
-    <mat-card-header>
-      <div mat-card-avatar><mat-icon>person</mat-icon></div>
-      <mat-card-title>{{archivedStatus.date | date: 'EEEE, MMMM d'}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <h2><u>Shift:</u> {{archivedStatus.shift}}</h2>
-      <h2><u>Line:</u> {{archivedStatus.status}}</h2>
-      <h2 *ngIf="archivedStatus.comment"><u>Comment:</u> {{archivedStatus.comment}}</h2>
-      </mat-card-content>
-  </mat-card>
-</section>
+    <mat-card *ngFor="let archivedStatus of lineStatusArray" class="achived-status">
+      <mat-card-header>
+        <div mat-card-avatar><mat-icon>person</mat-icon></div>
+        <mat-card-title>{{archivedStatus.date | date: 'EEEE, MMMM d'}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2><u>Shift:</u> {{archivedStatus.shift}}</h2>
+        <h2><u>Line:</u> {{archivedStatus.status}}</h2>
+        <h2 *ngIf="archivedStatus.comment"><u>Comment:</u> {{archivedStatus.comment}}</h2>
+        </mat-card-content>
+    </mat-card>
+  </section>
+</div>
+
 
 
 
