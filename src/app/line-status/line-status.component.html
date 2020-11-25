@@ -58,7 +58,7 @@
     <mat-card-content>
       <h2><u>Shift:</u> {{shift}}</h2>
       <h2><u>Line:</u> {{status}}</h2>
-      <h2><u>Comment:</u> {{comment}}</h2>
+      <h2 *ngIf="comment"><u>Comment:</u> {{comment}}</h2>
       </mat-card-content>
   </mat-card>
 </section>
@@ -74,7 +74,7 @@
     <mat-card-content>
       <h2><u>Shift:</u> {{archivedStatus.shift}}</h2>
       <h2><u>Line:</u> {{archivedStatus.status}}</h2>
-      <h2><u>Comment:</u> {{archivedStatus.comment}}</h2>
+      <h2 *ngIf="archivedStatus.comment"><u>Comment:</u> {{archivedStatus.comment}}</h2>
       </mat-card-content>
   </mat-card>
 </section>
