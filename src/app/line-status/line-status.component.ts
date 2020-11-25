@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule } from "@angular/forms"
+import { AuthService } from '../auth/auth.service';
+import { User } from '../models/User';
 
 interface LineState {
   value: string;
@@ -23,6 +25,8 @@ interface LineStatus {
   styleUrls: ['./line-status.component.scss']
 })
 export class LineStatusComponent implements OnInit {
+
+  public users: User[];
 
   lineStatusForm = new FormGroup({
     date: new FormControl(),
@@ -63,9 +67,16 @@ export class LineStatusComponent implements OnInit {
     this.lineStatusForm.reset();
   }
 
-  constructor() { }
+
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
+    this.authService.getUsers()
+      .subscribe(users => {
+        this.users = users;
+        console.log(this.users)
+      });
   }
 
 }

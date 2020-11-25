@@ -21,6 +21,8 @@ import {MatButtonModule} from '@angular/material/button';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import {MatSelect, MatSelectModule} from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -59,7 +61,8 @@ import { LineStatusComponent } from './line-status/line-status.component';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule,
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
