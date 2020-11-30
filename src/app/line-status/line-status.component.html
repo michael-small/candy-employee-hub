@@ -67,7 +67,7 @@
   <section *ngIf="lineStatusArray.length > 0" id="archive">
     <h1>Archived Line Statuses</h1>
 
-    <mat-card *ngFor="let archivedStatus of lineStatusArray" class="achived-status">
+    <mat-card *ngFor="let archivedStatus of lineStatusArray; first as first" class="achived-status" [ngStyle]="{'border' : first ? '2px solid black' : 'none'}">
       <mat-card-header>
         <div mat-card-avatar><mat-icon>person</mat-icon></div>
         <mat-card-title>{{archivedStatus.date | date: 'EEEE, MMMM d'}}</mat-card-title>
