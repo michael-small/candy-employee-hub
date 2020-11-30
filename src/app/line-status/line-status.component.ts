@@ -63,6 +63,8 @@ export class LineStatusComponent implements OnInit {
     this.lineStatusInstance.shift = this.shift;
 
     this.lineStatusArray.push(this.lineStatusInstance);
+    console.log(this.lineStatusInstance);
+    this.lineStatusArray.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any));
     this.lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
     this.lineStatusForm.reset();
   }
@@ -75,7 +77,6 @@ export class LineStatusComponent implements OnInit {
     this.authService.getUsers()
       .subscribe(users => {
         this.users = users;
-        console.log(this.users)
       });
   }
 
