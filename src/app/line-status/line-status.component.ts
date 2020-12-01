@@ -35,7 +35,10 @@ export class LineStatusComponent implements OnInit {
     status: new FormControl(),
   });
 
-  lineStatusArray: LineStatus[] = [];
+  lineStatusArray: LineStatus[] = [
+    {comment: 'Active is caked on hard. Will require caustic.', status: 'Cleaning', date: 'Wed Dec 09 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Mid'},
+    {comment: '', status: 'Cleaning', date: 'Wed Dec 01 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Mid'},
+  ];
   lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
 
   comment = '';
