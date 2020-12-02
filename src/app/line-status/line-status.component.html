@@ -5,14 +5,14 @@
       <h2>What date do you want to assign a line status to?</h2>
       <mat-form-field appearance="fill" style="margin-right: 0.5rem;">
         <mat-label>Pick a Date</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="date" required name="date" formControlName="date">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="lineStatusInstance.date" required name="date" formControlName="date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Select Shift</mat-label>
-        <mat-select required [(ngModel)]="shift" name="shift" formControlName="shift">
+        <mat-select required [(ngModel)]="lineStatusInstance.shift" name="shift" formControlName="shift">
           <mat-option *ngFor="let shift of shifts" [value]="shift.viewValue" required>
             {{shift.viewValue}}
           </mat-option>
@@ -24,7 +24,7 @@
       <h2>How is the line this shift?</h2>
       <mat-form-field appearance="fill">
         <mat-label>Select Line Status</mat-label>
-        <mat-select required [(ngModel)]="status" name="status" formControlName="status">
+        <mat-select required [(ngModel)]="lineStatusInstance.status" name="status" formControlName="status">
           <mat-option *ngFor="let state of line" [value]="state.viewValue">
             {{state.viewValue}}
           </mat-option>
@@ -35,7 +35,7 @@
     <div class="child-center">
       <mat-form-field style="width: 100%" appearance="fill">
         <mat-label>Leave a comment (optional)</mat-label>
-        <textarea matInput placeholder="Because James is sick..." [(ngModel)]="comment" name="comment" formControlName="comment"></textarea>
+        <textarea matInput placeholder="Because James is sick..." [(ngModel)]="lineStatusInstance.comment" name="comment" formControlName="comment"></textarea>
       </mat-form-field>
 
       <section>
@@ -54,12 +54,12 @@
     <mat-card>
       <mat-card-header>
         <div mat-card-avatar><mat-icon>person</mat-icon></div>
-        <mat-card-title>{{date | date: 'EEEE, MMMM d'}}</mat-card-title>
+        <mat-card-title>{{lineStatusInstance.date | date: 'EEEE, MMMM d'}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <h2><u>Shift:</u> {{shift}}</h2>
-        <h2><u>Line:</u> {{status}}</h2>
-        <h2 *ngIf="comment"><u>Comment:</u> {{comment}}</h2>
+        <h2><u>Shift:</u> {{lineStatusInstance.shift}}</h2>
+        <h2><u>Line:</u> {{lineStatusInstance.status}}</h2>
+        <h2 *ngIf="lineStatusInstance.comment"><u>Comment:</u> {{lineStatusInstance.comment}}</h2>
         </mat-card-content>
     </mat-card>
   </section>

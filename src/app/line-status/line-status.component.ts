@@ -39,12 +39,8 @@ export class LineStatusComponent implements OnInit {
     {comment: 'Active is caked on hard. Will require caustic.', status: 'Cleaning', date: 'Wed Dec 09 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Mid'},
     {comment: '', status: 'Cleaning', date: 'Wed Dec 01 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Mid'},
   ];
-  lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
 
-  comment = '';
-  status: '';
-  date = '';
-  shift: '';
+  lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
 
   line: LineState[] = [
     {value: 'trial', viewValue: 'Trial'},
@@ -60,13 +56,7 @@ export class LineStatusComponent implements OnInit {
   ];
 
   submitLineStatus(): void {
-    this.lineStatusInstance.comment = this.comment;
-    this.lineStatusInstance.status = this.status;
-    this.lineStatusInstance.date = this.date;
-    this.lineStatusInstance.shift = this.shift;
-
     this.lineStatusArray.push(this.lineStatusInstance);
-    console.log(this.lineStatusInstance);
     this.lineStatusArray.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any));
     this.lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
     this.lineStatusForm.reset();
