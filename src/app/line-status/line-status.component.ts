@@ -40,7 +40,7 @@ export class LineStatusComponent implements OnInit {
     {comment: '', status: 'Cleaning', date: 'Wed Dec 01 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Mid'},
   ];
 
-  lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
+  lineStatusInstance: LineStatus = ({comment: '', status: '', date: '', shift: ''});
 
   line: LineState[] = [
     {value: 'trial', viewValue: 'Trial'},
