@@ -39,15 +39,23 @@ export class LineStatusComponent implements OnInit {
     status: new FormControl(),
   });
 
+  // TODO: There has to be a better way to do this, or at least a better area to put these fields.
+  // TODO: DRY this up after demo phase.
+  // I hate this as much as you do.
+  private todayDate = new Date();
+  private today = this.todayDate.toDateString();
+  private tomorrow = new Date(this.todayDate.setDate(this.todayDate.getDate() + 1)).toDateString();
+  private todayDate2 = new Date();
+  private yesterday = new Date(this.todayDate.setDate(this.todayDate2.getDate() - 1)).toDateString();
+
   lineStatusArray: LineStatus[] = [
-    {comment: '', status: 'Cleaning', date: 'Wed Nov 01 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Day'},
-    {comment: '', status: 'Cleaning', date: 'Wed Nov 02 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Mid'},
     {comment: '<DEMO NOTE: 12-1-2019. We need to discuss how to handle displaying years.>', status: 'Cleaning', date: 'Wed Dec 01 2019 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Night'},
-    {comment: '', status: 'Cleaning', date: new Date().toDateString(), shift: 'Mid'},
-    {comment: 'Active clogged up the mixer.', status: 'Cleaning', date: new Date().toDateString(), shift: 'Day'},
-    {comment: 'Going good as of noon.', status: 'Trial', date: new Date().toDateString(), shift: 'Day'},
-    {comment: '', status: 'Down', date: new Date().toDateString(), shift: 'Night'},
-    {comment: 'Active is caked on hard. Will require caustic.', status: 'Cleaning', date: 'Wed Dec 09 2020 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Mid'},
+    {comment: '', status: 'Cleaning', date: this.yesterday, shift: 'Mid'},
+    {comment: '', status: 'Cleaning', date: this.today, shift: 'Mid'},
+    {comment: 'Active clogged up the mixer.', status: 'Cleaning', date: this.today, shift: 'Day'},
+    {comment: 'Going good as of noon.', status: 'Trial', date: this.today, shift: 'Day'},
+    {comment: '', status: 'Down', date: this.today, shift: 'Night'},
+    {comment: 'Active is caked on hard. Will require caustic.', status: 'Cleaning', date: this.tomorrow, shift: 'Mid'},
     {comment: '<DEMO NOTE: 12-2-2025. We need to discuss how to handle displaying years.>', status: 'Cleaning', date: 'Wed Dec 02 2025 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Night'},
   ];
 
