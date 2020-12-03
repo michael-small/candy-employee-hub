@@ -75,8 +75,31 @@ export class LineStatusComponent implements OnInit {
   ];
 
   submitLineStatus(): void {
+    // TODO: This `today` may be redundant, but I have a feeling that if I take this and the
+    //   `today` in `ngOnInit()` into the general class that `today` wont register when it needs
+    //   to in `ngOnInit()`. And I'm rusty on how to set fields in `ngOnInit()` publicly to the
+    //   component and don't care to for the demo. Ironically, the time I spend making these comments
+    //   could likely add up to time to quickly look at the docs about this. Oh well.
+    //   In fact, I know I handled the `today` problem in a friend's project a couple weeks ago...
+    //   If I haven't emphasized this enough by now, I don't do this garbage, non-DRY work outside
+    //   of demos. It's less than 20 minutes before I have to leave for work. I hope that this BECOMES
+    //   my work so that I can do it properly because I have the time.
+    const today = new Date();
+    today.setHours(0, 0 , 0, 0);
     this.lineStatusArray.push(this.lineStatusInstance);
     this.lineStatusArray.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any));
+
+    // DRY after demo, with async in mind
+    if(Date.parse(this.lineStatusInstance.date) > today.getTime()) {
+      this.futureStatuses.push(this.lineStatusInstance);
+      this.futureStatuses.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any));
+    } else if (Date.parse(this.lineStatusInstance.date) < today.getTime()) {
+      this.archivedStatuses.push(this.lineStatusInstance);
+      this.archivedStatuses.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any));
+    } else if (Date.parse(this.lineStatusInstance.date).valueOf() === today.getTime().valueOf()) {
+      this.todaysStatuses.push(this.lineStatusInstance);
+      this.todaysStatuses.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any));
+    }
     this.lineStatusInstance = {comment: '', status: '', date: '', shift: ''};
     this.lineStatusForm.reset();
   }
