@@ -29,6 +29,7 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { LineStatusArchiveComponent } from './line-status/line-status-archive/line-status-archive.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatIconModule } from '@angular/material/icon';
     AboutComponent,
     ContactComponent,
     EmployeeAssignmentBoardComponent,
-    LineStatusComponent
+    LineStatusComponent,
+    LineStatusArchiveComponent
   ],
   imports: [
     BrowserModule,
