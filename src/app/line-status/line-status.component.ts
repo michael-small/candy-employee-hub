@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule } from "@angular/forms"
 import { AuthService } from '../auth/auth.service';
@@ -75,6 +76,7 @@ export class LineStatusComponent implements OnInit {
   ];
 
   submitLineStatus(): void {
+    this.onCreateLineStatus(this.lineStatusInstance);
     // TODO: This `today` may be redundant, but I have a feeling that if I take this and the
     //   `today` in `ngOnInit()` into the general class that `today` wont register when it needs
     //   to in `ngOnInit()`. And I'm rusty on how to set fields in `ngOnInit()` publicly to the
@@ -104,8 +106,30 @@ export class LineStatusComponent implements OnInit {
     this.lineStatusForm.reset();
   }
 
+  onCreateLineStatus(lineStatus: LineStatus) {
+    // Send Http request
+    this.http.post('https://candyemployeehub-default-rtdb.firebaseio.com/statuses.json', lineStatus)
+      .subscribe(responseData => {
+        //responseData is just the body
+        console.log(responseData);
+      });
+  }
 
-  constructor(private authService: AuthService) {
+  // If a click listener for statuses is needed, "on" is the proper prefix for these methods.
+  onFetchStatuses() {
+    this.fetchStatuses();
+  }
+
+  private fetchStatuses() {
+    this.http.get('https://candyemployeehub-default-rtdb.firebaseio.com/statuses.json').subscribe(
+      statuses => {
+        console.log(statuses)
+      }
+    );
+  }
+
+
+  constructor(private authService: AuthService, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -122,6 +146,8 @@ export class LineStatusComponent implements OnInit {
       .subscribe(users => {
         this.users = users;
       });
+
+    this.fetchStatuses();
   }
 
 }
