@@ -64,9 +64,9 @@
     </mat-card>
   </section>
 
-  <section *ngIf="lineStatusArray.length > 0" id="today">
-    <h1>Today's Line Statuses</h1>
-
+  <h1>Today's Line Statuses</h1>
+  <mat-card *ngIf="todaysStatuses.length < 1">There are no statuses posted for today.</mat-card>
+  <section *ngIf="todaysStatuses.length >= 1" id="today">
     <mat-card *ngFor="let archivedStatus of todaysStatuses; first as first" class="achived-status" [ngStyle]="{'border' : first ? '2px solid black' : 'none'}">
       <mat-card-header>
         <div mat-card-avatar><mat-icon>person</mat-icon></div>
@@ -81,7 +81,8 @@
   </section>
 
   <h1>Future Line Statuses</h1>
-  <section class="child-center">
+  <mat-card *ngIf="futureStatuses.length < 1">There are no future statuses posted.</mat-card>
+  <section class="child-center" *ngIf="futureStatuses.length >= 1">
     <mat-accordion>
       <mat-expansion-panel>
         <button mat-flat-button class="child-center" color="primary" routerLink="#">View All Scheduled Statuses</button>
@@ -109,7 +110,8 @@
   </section>
 
   <h1>Archived Line Statuses</h1>
-  <section class="child-center">
+  <mat-card *ngIf="archivedStatuses.length < 1">There are no archived statuses posted.</mat-card>
+  <section class="child-center" *ngIf="archivedStatuses.length >= 1">
     <mat-accordion>
       <mat-expansion-panel>
         <button mat-flat-button class="child-center" color="primary" routerLink="#">View All Past Statuses</button>

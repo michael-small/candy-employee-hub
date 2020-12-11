@@ -1,10 +1,11 @@
 # Notes on Udemy Course
 
-
 ## Experience before the Course: The Dark Times
 Michael has had over a year of fullstack Angular development experience as of the start of this project. His first experience was a college course that taught an Agile workstyle and gave four iterations over the course of the semester using Angular. Since then he worked on two [(1)](https://github.com/Megabittron/DeploymentExperiment-URS) [(2)](https://github.com/mn-pollinators/buzz-about) internships that used Angular. In particular, his [most extensive Angular experience](https://github.com/Megabittron/DeploymentExperiment-URS) was through a webapp for an internship focused on creating a way for undergraduate students to submit research abstracts to be reviewed by anonmyous university faculty committees. But those classes and internships were student lead while everyone was scrambling to learn Angular along the way, so many practices were not proper to say the least.
 
 ## So why take a course? Why that course?
+Michael has gotten rusty with Angular, especially RxJS [("RxJS is a library for composing asynchronous and event-based programs by using observable sequences. It provides one core type, the Observable, satellite types (Observer, Schedulers, Subjects) and operators inspired by Array#extras (map, filter, reduce, every, etc) to allow handling asynchronous events as collections.")](https://rxjs-dev.firebaseapp.com/guide/overview).
+
 To suppliment these somewhat outdated practices full of antipatterns and hacky solututions, Michael bought a paid course on Angular that spans 455 lectures and 34 hours of content. Maximilian Schwarzmüller, professional web developer and instructor created the course ["Angular - The Complete Guide (2020 Edition)"](https://www.udemy.com/course/the-complete-guide-to-angular-2/) to be taken asynchronously on the video teaching platform Udemy. Max has been an invaluable resource for learning best Angular practices in Michael's experience, and has instilled some of Michael's better practices with the framework. At the time of writing, Michael is about a quarter of the way through the course and has jumped ahead to learn about Firebase. For anyone who is interested in the course but turned off by the price, Udemy courses often go on sale and have coupon codes that can make the course cost at max $20.
 
 The following is learning notes concerning the Firebase portion of the course:
@@ -39,3 +40,18 @@ The following is learning notes concerning the Firebase portion of the course:
 
 * `fetchStatuses()` uses same URL as route from last lesson because it is merely getting the data from that statuses collection. JSON object that is returned needs to be translated to object type we want. 
 * `onFetchStatuses()` was made for Max's demo where that was called in a click handler on a button to retrieve his data. I don't plan on having a use for it... yet. His practice of starting names of click handlers with "on" is good practice that I see on every legitamate turorial, so I retain this as an artifact of good practice. 
+
+### 256. Using RxJS Operators to Transform Response Data
+
+* `pipe()` is an RxJS method that allows funneling Observable data through multiple operators before being subscribed to. Using `map()` from RxJS in this case, which re-wraps mapped data into an Observable.
+* Contrary to the lesson, something in Max's typescript configuration was different than the current version used in this project. Wherein `fetchStatuses()` works perfectly in Max's provided project, but not in this one. The problem was that `responseData[key]` in this project was throwing `ts(7053)` because `Element implicitly has an 'any' type because expression of type 'string' can't be used to index type 'Object'`. So the difference was that this project's current TS configuration required explictly casting `key` as a string and `responseData` as `any`. Thank's to Monir and TA Jost of [this Q&A thread](https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/14466334#questions/12830761) on the videos for the syntax.
+
+### 257. Using Types with the HttpClient
+
+* What was decribed by the last point is followed up upon in this lesson. However, instead of declaring the castings on `responseData`, it is instead set in `.get<{ [key: string]: LineStatus }>(https://.....)`. This is better because my TS configuration allowed me to type the response data as a `LineStatus` rather than `any`. Though Max calls them both valid syntax, the one in the `get` and the one casting method on `responseData`, the `responseData` approach wouldn't recognize `LineStatus`.
+* That angle bracket notation is available on all HTTP requests.
+* In TypeScript, `?` at the start of an interface's property means the property is optional. Because Firebase returns an `id` that it generates after the webapp sends it a `LineStatus`, `?id` allows that field to not be explictly stated when created yet recognized when Firebase returns it. 
+
+### 258. Outputting Posts
+
+* Ensure that there is an if/else for each array of statuses that shows one thing if they are empty and another if they are not.

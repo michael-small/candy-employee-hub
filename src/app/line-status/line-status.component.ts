@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule } from "@angular/forms"
 import { AuthService } from '../auth/auth.service';
 import { User } from '../models/User';
+import { map } from 'rxjs/operators';
 
 interface LineState {
   value: string;
@@ -18,6 +19,7 @@ interface LineStatus {
   status: string;
   date: string;
   shift: string;
+  id?: string;
 }
 
 @Component({
@@ -27,9 +29,9 @@ interface LineStatus {
 })
 export class LineStatusComponent implements OnInit {
 
-  public archivedStatuses: LineStatus[];
-  public futureStatuses: LineStatus[];
-  public todaysStatuses: LineStatus[];
+  public archivedStatuses: LineStatus[] = [];
+  public futureStatuses: LineStatus[] = [];
+  public todaysStatuses: LineStatus[] = [];
 
   public users: User[];
 
@@ -40,25 +42,7 @@ export class LineStatusComponent implements OnInit {
     status: new FormControl(),
   });
 
-  // TODO: There has to be a better way to do this, or at least a better area to put these fields.
-  // TODO: DRY this up after demo phase.
-  // I hate this as much as you do.
-  private todayDate = new Date();
-  private today = this.todayDate.toDateString();
-  private tomorrow = new Date(this.todayDate.setDate(this.todayDate.getDate() + 1)).toDateString();
-  private todayDate2 = new Date();
-  private yesterday = new Date(this.todayDate.setDate(this.todayDate2.getDate() - 1)).toDateString();
-
-  lineStatusArray: LineStatus[] = [
-    {comment: '<DEMO NOTE: 12-1-2019. We need to discuss how to handle displaying years.>', status: 'Cleaning', date: 'Wed Dec 01 2019 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Night'},
-    {comment: '', status: 'Cleaning', date: this.yesterday, shift: 'Mid'},
-    {comment: '', status: 'Cleaning', date: this.today, shift: 'Mid'},
-    {comment: 'Active clogged up the mixer.', status: 'Cleaning', date: this.today, shift: 'Day'},
-    {comment: 'Going good as of noon.', status: 'Trial', date: this.today, shift: 'Day'},
-    {comment: '', status: 'Down', date: this.today, shift: 'Night'},
-    {comment: 'Active is caked on hard. Will require caustic.', status: 'Cleaning', date: this.tomorrow, shift: 'Mid'},
-    {comment: '<DEMO NOTE: 12-2-2025. We need to discuss how to handle displaying years.>', status: 'Cleaning', date: 'Wed Dec 02 2025 00:00:00 GMT-0600 (Central Standard Time)', shift: 'Night'},
-  ];
+  lineStatusArray: LineStatus[] = [];
 
   lineStatusInstance: LineStatus = ({comment: '', status: '', date: '', shift: ''});
 
@@ -108,10 +92,8 @@ export class LineStatusComponent implements OnInit {
 
   onCreateLineStatus(lineStatus: LineStatus) {
     // Send Http request
-    this.http.post('https://candyemployeehub-default-rtdb.firebaseio.com/statuses.json', lineStatus)
+    this.http.post<{name: string}>('https://candyemployeehub-default-rtdb.firebaseio.com/statuses.json', lineStatus)
       .subscribe(responseData => {
-        //responseData is just the body
-        console.log(responseData);
       });
   }
 
@@ -121,9 +103,55 @@ export class LineStatusComponent implements OnInit {
   }
 
   private fetchStatuses() {
-    this.http.get('https://candyemployeehub-default-rtdb.firebaseio.com/statuses.json').subscribe(
+    this.http
+    .get<{ [key: string]: LineStatus }>('https://candyemployeehub-default-rtdb.firebaseio.com/statuses.json')
+    .pipe(
+      map(responseData => {
+        // Converts JSON object from Firebase to LineStatus[]
+        const statusesArray: LineStatus[] = [];
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+            statusesArray.push({...responseData[key], id: key});
+          }
+        }
+        return statusesArray;
+    }))
+    .subscribe(
       statuses => {
-        console.log(statuses)
+        this.lineStatusArray = statuses;
+
+        // Ensures that the demo always has a yesterday/today/tomorrow
+        // TODO: DRY this up. I hate this as much as you do.
+        // TODO: Remove these dates and `staticStatuses` when the demo phase is over
+        let todayDate = new Date();
+        let todayString = todayDate.toDateString();
+        let tomorrow = new Date(todayDate.setDate(todayDate.getDate() + 1)).toDateString();
+        let todayDate2 = new Date();
+        let yesterday = new Date(todayDate.setDate(todayDate2.getDate() - 1)).toDateString();
+        let staticStatuses: LineStatus[] = [
+          {comment: 'Preparing new batch', status: 'Cleaning', date: yesterday, shift: 'Mid'},
+          {comment: 'Cooking with a slow active', status: 'Production', date: todayString, shift: 'Mid'},
+          {comment: 'Active is caked on hard. Will require caustic.', status: 'Cleaning', date: tomorrow, shift: 'Mid'},
+        ]
+
+        // Adds those always current yesterday/today/tomorrow items to the Firebase items
+        staticStatuses.map(status => {
+          return {
+            comment: status.comment,
+            status: status.status,
+            date: status.date,
+            shift: status.shift,
+          }
+        }).forEach(status => this.lineStatusArray.push(status));
+
+        // This is duplicated despite `todayDate` existing because manipulations up there alters `todayDate`
+        // TODO: Learn the proper way to set dates such that this and code up there doesn't need to be duplicated
+        const today = new Date();
+        today.setHours(0, 0 , 0, 0);
+
+        this.archivedStatuses = this.lineStatusArray.filter(status => Date.parse(status.date) < today.getTime());
+        this.futureStatuses = this.lineStatusArray.filter(status => Date.parse(status.date) > today.getTime());
+        this.todaysStatuses = this.lineStatusArray.filter(status => Date.parse(status.date).valueOf() === today.getTime().valueOf());
       }
     );
   }
@@ -133,20 +161,6 @@ export class LineStatusComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    // for splitting the archived line statuses into past/present/future
-    const today = new Date();
-    today.setHours(0, 0 , 0, 0);
-
-    this.archivedStatuses = this.lineStatusArray.filter(status => Date.parse(status.date) < today.getTime());
-    this.futureStatuses = this.lineStatusArray.filter(status => Date.parse(status.date) > today.getTime());
-    this.todaysStatuses = this.lineStatusArray.filter(status => Date.parse(status.date).valueOf() === today.getTime().valueOf());
-
-    this.authService.getUsers()
-      .subscribe(users => {
-        this.users = users;
-      });
-
     this.fetchStatuses();
   }
 
