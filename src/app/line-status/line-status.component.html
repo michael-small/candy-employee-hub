@@ -1,0 +1,147 @@
+<section class="center">
+  <form [formGroup]="lineStatusForm">
+    <h1>Line Status</h1>
+    <div class="child-center">
+      <h2>What date do you want to assign a line status to?</h2>
+      <mat-form-field appearance="fill" style="margin-right: 0.5rem;">
+        <mat-label>Pick a Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="lineStatusInstance.date" required name="date" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select Shift</mat-label>
+        <mat-select required [(ngModel)]="lineStatusInstance.shift" name="shift" formControlName="shift">
+          <mat-option *ngFor="let shift of shifts" [value]="shift.viewValue" required>
+            {{shift.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="child-center">
+      <h2>How is the line this shift?</h2>
+      <mat-form-field appearance="fill">
+        <mat-label>Select Line Status</mat-label>
+        <mat-select required [(ngModel)]="lineStatusInstance.status" name="status" formControlName="status">
+          <mat-option *ngFor="let state of line" [value]="state.viewValue">
+            {{state.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="child-center">
+      <mat-form-field style="width: 100%" appearance="fill">
+        <mat-label>Leave a comment (optional)</mat-label>
+        <textarea matInput placeholder="Because James is sick..." [(ngModel)]="lineStatusInstance.comment" name="comment" formControlName="comment"></textarea>
+      </mat-form-field>
+
+      <section>
+        <div class="center center-button">
+          <button mat-raised-button color="primary" (click)="submitLineStatus()" [disabled]="lineStatusForm.invalid">Submit</button>
+        </div>
+      </section>
+    </div>
+  </form>
+</section>
+
+<div id="statuses">
+  <section>
+    <h1>What Employees Will See</h1>
+
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar><mat-icon>person</mat-icon></div>
+        <mat-card-title>{{lineStatusInstance.date | date: 'EEEE, MMMM d'}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2><u>Shift:</u> {{lineStatusInstance.shift}}</h2>
+        <h2><u>Line:</u> {{lineStatusInstance.status}}</h2>
+        <h2 *ngIf="lineStatusInstance.comment"><u>Comment:</u> {{lineStatusInstance.comment}}</h2>
+        </mat-card-content>
+    </mat-card>
+  </section>
+
+  <h1>Today's Line Statuses</h1>
+  <mat-card *ngIf="todaysStatuses.length < 1">There are no statuses posted for today.</mat-card>
+  <section *ngIf="todaysStatuses.length >= 1" id="today">
+    <mat-card *ngFor="let archivedStatus of todaysStatuses; first as first" class="achived-status" [ngStyle]="{'border' : first ? '2px solid black' : 'none'}">
+      <mat-card-header>
+        <div mat-card-avatar><mat-icon>person</mat-icon></div>
+        <mat-card-title>{{archivedStatus.date | date: 'EEEE, MMMM d'}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2><u>Shift:</u> {{archivedStatus.shift}}</h2>
+        <h2><u>Line:</u> {{archivedStatus.status}}</h2>
+        <h2 *ngIf="archivedStatus.comment"><u>Comment:</u> {{archivedStatus.comment}}</h2>
+        </mat-card-content>
+    </mat-card>
+  </section>
+
+  <h1>Future Line Statuses</h1>
+  <mat-card *ngIf="futureStatuses.length < 1">There are no future statuses posted.</mat-card>
+  <section class="child-center" *ngIf="futureStatuses.length >= 1">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <button mat-flat-button class="child-center" color="primary" routerLink="#">View All Scheduled Statuses</button>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Open Future Statuses
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngIf="lineStatusArray.length > 0" id="future">
+          <mat-card *ngFor="let archivedStatus of futureStatuses; first as first" class="achived-status">
+            <mat-card-header>
+              <div mat-card-avatar><mat-icon>person</mat-icon></div>
+              <mat-card-title>{{archivedStatus.date | date: 'EEEE, MMMM d'}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h2><u>Shift:</u> {{archivedStatus.shift}}</h2>
+              <h2><u>Line:</u> {{archivedStatus.status}}</h2>
+              <h2 *ngIf="archivedStatus.comment"><u>Comment:</u> {{archivedStatus.comment}}</h2>
+              </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </section>
+
+  <h1>Archived Line Statuses</h1>
+  <mat-card *ngIf="archivedStatuses.length < 1">There are no archived statuses posted.</mat-card>
+  <section class="child-center" *ngIf="archivedStatuses.length >= 1">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <button mat-flat-button class="child-center" color="primary" routerLink="#">View All Past Statuses</button>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Open Achived Statuses
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngIf="lineStatusArray.length > 0" id="archive">
+          <mat-card *ngFor="let archivedStatus of archivedStatuses; first as first" class="achived-status">
+            <mat-card-header>
+              <div mat-card-avatar><mat-icon>person</mat-icon></div>
+              <mat-card-title>{{archivedStatus.date | date: 'EEEE, MMMM d'}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <h2><u>Shift:</u> {{archivedStatus.shift}}</h2>
+              <h2><u>Line:</u> {{archivedStatus.status}}</h2>
+              <h2 *ngIf="archivedStatus.comment"><u>Comment:</u> {{archivedStatus.comment}}</h2>
+              </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </section>
+
+
+</div>
+
+
+
+
+

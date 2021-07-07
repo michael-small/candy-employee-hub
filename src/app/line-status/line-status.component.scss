@@ -1,0 +1,67 @@
+.center {
+  margin-right: auto;
+  margin-left: auto;
+  width: 70%;
+}
+
+.child-center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+mat-expansion-panel {
+  border: 2px solid black;
+}
+
+mat-panel-title {
+  font-size: 1rem;
+}
+
+.center-button {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+mat-card {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgb(231, 229, 229);
+}
+
+mat-card-header {
+  margin-bottom: 0.5rem;
+}
+
+section {
+  margin-bottom: 0.5rem;
+}
+
+#archive {
+  margin-bottom: 0.5rem;
+}
+
+.achived-status {
+  margin-top: 0.5rem;
+}
+
+// ~~~~MEDIA QUERIES~~~~
+
+// "LARGE" SCREENS
+@media only screen and (min-width: 800px) {
+  section {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
